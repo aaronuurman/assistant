@@ -1,2 +1,4 @@
 Assistant_Cli.egg-info
 __pycache__
+*.pyc
+.vscode
