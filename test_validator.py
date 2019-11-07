@@ -35,5 +35,16 @@ class TestValidator(unittest.TestCase):
     #Assert
     self.assertEqual('Validation Success: Title "test" is valid.', result)
 
+  def test_empty_string_validate_img_error(self):
+    #Arrange
+    img = ''
+    #Act
+    with self.assertRaises(ValueError) as value_error:
+      validator.validate_img(img)
+
+    exception_message = value_error.exception.args[0]
+    #Assert
+    self.assertEqual('Blog image is required, currently supporting only Unsplash.', exception_message)
+
 if __name__ == '__main__':
   unittest.main()

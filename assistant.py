@@ -24,13 +24,18 @@ def cli(config, verbose):
 
 @cli.command()
 @click.argument('title')
+@click.argument('img')
 @pass_config
-def blog(config, title):
+def blog(config, title, img):
 	"""Use this command to interact with blog."""
 	try:
 		logger.info(config.verbose, 'Starting title validation.')
 		title_validation_result = validator.validate_tile(title)
 		logger.success(title_validation_result)
+
+		logger.info(config.verbose, 'Starting img validation.')
+		img_validation_result = validator.validate_img(img)
+		logger.success(img_validation_result)
 	except ValueError as er:
 		logger.error('Validation Error: {}'.format(er))
 	except Exception as ex:
