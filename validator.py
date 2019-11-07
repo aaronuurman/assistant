@@ -34,7 +34,6 @@ def validate_img(img):
   regex = re.compile(
         r'^(?:http|ftp)s?://' # http:// or https://
         r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-        r'localhost|' #localhost...
         r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
         r'(?::\d+)?' # optional port
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
@@ -42,6 +41,9 @@ def validate_img(img):
   result = re.match(regex, img)
 
   if result is None :
-    raise ValueError('Blog image url is not a valid URL.')
+    raise ValueError('Invalid blog image url.')
+
+  if "unsplash.com/photos/" not in img:
+    raise ValueError('Invalid blog image url, currently supporting only Unsplash images.')
 
   return 'Validation Success: Image "%s" is valid.' % img
