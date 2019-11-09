@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 import click
-import logger
-import validator
+import os
+import blog_command
+from str_helper import is_null_or_whitespace
 
 class Config(object):
 
@@ -23,23 +24,33 @@ def cli(config, verbose):
 	config.verbose = verbose
 
 @cli.command()
-@click.argument('title')
-@click.argument('img')
+@click.option(
+	'-t',
+	'--title',
+	required=True,
+	type=str,
+	help='The title of blog post.'
+)
+@click.option(
+	'-i',
+	'--image',
+	required=True,
+	type=str,
+	help='The Unsplash image url.'
+)
+@click.option(
+	'-p',
+	'--project-path',
+	required=False,
+	type=click.Path(),
+	help='The full path to project folder. Default: current working directory.',
+	default=os.getcwd()
+)
 @pass_config
-def blog(config, title, img):
-	"""Use this command to interact with blog."""
-	try:
-		logger.info(config.verbose, 'Starting title validation.')
-		title_validation_result = validator.validate_tile(title)
-		logger.success(title_validation_result)
+def blog(config, title, image, project_path):
+	"""Use this command to start a new blog post."""
 
-		logger.info(config.verbose, 'Starting img validation.')
-		img_validation_result = validator.validate_img(img)
-		logger.success(img_validation_result)
-	except ValueError as er:
-		logger.error('Validation Error: {}'.format(er))
-	except Exception as ex:
-		logger.error(format(ex))
+	blog_command.handle(config, title, image, project_path)
 
 # Add blog command to cli
 cli.add_command(blog)

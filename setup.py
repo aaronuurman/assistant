@@ -7,7 +7,9 @@ setup(
     version='0.0.3',
     py_modules=['assistant'],
     install_requires=[
-        'Click'
+        'Click',
+        'python-slugify',
+        'beautifulsoup4'
     ],
     entry_points='''
         [console_scripts]
