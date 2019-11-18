@@ -9,6 +9,10 @@ import file_handler
 
 def handle(config, title, img_url, project_path):
 	try:
+		logger.info(config.verbose, 'Starting project path validation.')
+		path_validation_result = validator.validate_project_path(project_path)
+		logger.success(path_validation_result)
+
 		logger.info(config.verbose, 'Starting title validation.')
 		title_validation_result = validator.validate_tile(title)
 		logger.success(title_validation_result)
@@ -16,10 +20,6 @@ def handle(config, title, img_url, project_path):
 		logger.info(config.verbose, 'Starting image url validation.')
 		img_validation_result = validator.validate_img(img_url)
 		logger.success(img_validation_result)
-
-		logger.info(config.verbose, 'Starting project path validation.')
-		path_validation_result = validator.validate_project_path(project_path)
-		logger.success(path_validation_result)
 
 		logger.info(config.verbose, 'Requesting image data.')
 		file_name = '.'.join((slugify(title),'jpg'))
