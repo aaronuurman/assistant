@@ -22,3 +22,10 @@ def find_sub_folder(parent_path, sub_path):
 		return None
 
 	return result[0]
+
+def write_to_file(full_path, data):
+	"""Write string data into file."""
+	
+	file = open(full_path, "w")
+	file.write(data)
+	file.close()

@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='Assistant-Cli',
-    version='0.0.3',
+    version='0.4.0',
     py_modules=['assistant'],
     install_requires=[
         'Click',

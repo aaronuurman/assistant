@@ -2,6 +2,7 @@
 import os
 
 def createNewBranch(title):
-	str = 'post_%s' % title
+	str = 'post-%s' % title
 	command = 'git checkout -B ' + str
 	os.system(command)
+	return str
