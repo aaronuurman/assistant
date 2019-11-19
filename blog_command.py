@@ -43,9 +43,8 @@ def handle(config, title, img_url, project_path):
 		logger.info(config.verbose, 'Preparing data for new post.')
 		post_file_name = '.'.join((slug,'md'))
 		full_post_path = path.join(file_handler.find_sub_folder(project_path, '/src/pages/posts'), post_file_name)
-		post_data = template(title, image.file_name, image.author_name, image.author_profile)
+		post_data = __template(title, image.file_name, image.author_name, image.author_profile)
 		file_handler.write_to_file(full_post_path, post_data)
-
 
 	except ValueError as er:
 		logger.error('Validation Error: {}'.format(er))
@@ -53,7 +52,9 @@ def handle(config, title, img_url, project_path):
 		logger.error(format(ex))
 
 
-def template(title, image, image_author, image_author_profile):
+def __template(title, image, image_author, image_author_profile):
+	"""Returns a blog starter template with filled data."""
+	
 	data = """---
 title: %s
 date: "2019-11-14 07:20"
