@@ -2,8 +2,8 @@
 
 import click
 import os
-import blog_command
-from str_helper import is_null_or_whitespace
+import assistant.blog_command
+from assistant.str_helper import is_null_or_whitespace
 
 class Config(object):
 

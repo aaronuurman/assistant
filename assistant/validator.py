@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from str_helper import is_null_or_whitespace
-from file_handler import find_sub_folder
+from assistant.str_helper import is_null_or_whitespace
+from assistant.file_handler import find_sub_folder
 import re
 
 def validate_tile(title):

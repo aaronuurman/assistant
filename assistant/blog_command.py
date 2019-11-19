@@ -2,11 +2,7 @@
 
 from slugify import slugify
 from os import path
-import logger
-import validator
-import web_scraper
-import file_handler
-import git_handler
+from assistant import logger, validator, web_scraper, file_handler, git_handler
 
 def handle(config, title, img_url, project_path):
 	try:

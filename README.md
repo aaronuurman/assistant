@@ -14,3 +14,13 @@ Rest coming soon ...
 ### Installation
 - Clone repository
 - Navigate to folder and run ```./install-dev.sh```
+
+### Testing
+The easiest way to run tests is using a [pytest](https://docs.pytest.org/en/latest/contents.html).
+
+**Install pytest** <br />
+```pip install -U pytest```
+
+**Run tests**<br />
+Navigate to project root folder and run command below.
+```pytest```

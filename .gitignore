@@ -1,4 +1,5 @@
-Assistant_Cli.egg-info
+assistant_cli.egg-info
 __pycache__
 *.pyc
 .vscode
+.pytest_cache

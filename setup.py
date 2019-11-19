@@ -16,6 +16,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        assistant=assistant:cli
+        assistant=assistant.app:cli
     '''
 )
