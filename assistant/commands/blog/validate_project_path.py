@@ -24,4 +24,4 @@ class ValidateProjectPath:
     if not find_sub_folder(path, '/src/images'):
       raise ValueError('Blog project does not contain folder "images".')
 
-    return 'Validation Success: Project path "%s" is valid.' % path
+    return 'Validation: Project path "%s" is valid.' % path

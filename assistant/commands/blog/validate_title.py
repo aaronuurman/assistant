@@ -23,4 +23,4 @@ class ValidateTitle:
     if (len(title) < 3):
       raise ValueError('Blog title must be at least 3 characters.')
 
-    return 'Validation Success: Title "%s" is valid.' % title
+    return 'Validation: Title "%s" is valid.' % title

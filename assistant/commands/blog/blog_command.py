@@ -1,46 +1,33 @@
 #!/usr/bin/env python3
 
 from os import path
-from slugify import slugify
-from assistant.common import logger, file_handler, git_handler
+from assistant.common import logger, file_handler
 from assistant.commands.blog import web_scraper
 from assistant.commands.blog.validate_image import ValidateImage
 from assistant.commands.blog.validate_title import ValidateTitle
+from assistant.commands.blog.reguest_img_data import RequestImageData
+from assistant.commands.blog.create_new_branch import CreateNewBranch
 from assistant.commands.blog.validate_project_path import ValidateProjectPath
 
 def handle(config, title, img_url, project_path):
 	try:
-		tasks = []
-		tasks.append(ValidateProjectPath(project_path))
-		tasks.append(ValidateTitle(title))
-		tasks.append(ValidateImage(img_url))
+		tasks = [
+			ValidateProjectPath(project_path),
+			ValidateTitle(title),
+			ValidateImage(img_url),
+			RequestImageData(img_url, title, config),
+			CreateNewBranch(title)
+		]
 
-		logger.success(str(len(tasks)))
+		num_of_tasks = len(tasks)
+		i = 1
 
-		# logger.info(config.verbose, 'Starting project path validation.')
-		# path_validation_result = validator.validate_project_path(project_path)
-		# logger.success(path_validation_result)
-
-		# logger.info(config.verbose, 'Starting title validation.')
-		# title_validation_result = validator.validate_tile(title)
-		# logger.success(title_validation_result)
-
-		# logger.info(config.verbose, 'Starting image url validation.')
-		# img_validation_result = validator.validate_img(img_url)
-		# logger.success(img_validation_result)
-
-		# logger.info(config.verbose, 'Requesting image data.')
-		# slug = slugify(title)
-		# image_file_name = '.'.join((slug,'jpg'))
-		# image = web_scraper.get_image_author(img_url, image_file_name)
-		# logger.info(config.verbose, 'Image url: %s' % image.url)
-		# logger.info(config.verbose, 'Image file name: %s' % image.file_name)
-		# logger.info(config.verbose, 'Image author: %s' % image.author_name)
-		# logger.info(config.verbose, 'Image author profile: %s' % image.author_profile)
-		# logger.success('Successfully aquired image data.')
-
-		# branch_name = git_handler.createNewBranch(slug)
-		# logger.success('Successfully created a new working branch "%s".' % branch_name)
+		for task in tasks:
+			logger.info(config.verbose, task.start_message)
+			result = task.execute()
+			message = "[%i/%i] %s" % (i, num_of_tasks, result)
+			logger.success(message)
+			i+=1
 
 		# logger.info(config.verbose, 'Starting image download.')
 		# full_image_path = path.join(file_handler.find_sub_folder(project_path, '/src/images'), image_file_name)

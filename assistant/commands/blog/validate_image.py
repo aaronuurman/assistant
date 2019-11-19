@@ -37,4 +37,4 @@ class ValidateImage:
     if "unsplash.com/photos/" not in img:
       raise ValueError('Invalid blog image url, currently supporting only Unsplash images.')
 
-    return 'Validation Success: Image "%s" is valid.' % img
+    return 'Validation: Image "%s" is valid.' % img

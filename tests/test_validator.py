@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 
 import unittest
-from assistant.commands.blog import validator
+from assistant.commands.blog.validate_image import ValidateImage
+from assistant.commands.blog.validate_title import ValidateTitle
+from assistant.commands.blog.validate_project_path import ValidateProjectPath
 
-class TestValidator(unittest.TestCase):
+class TestValidation(unittest.TestCase):
   
   def test_empty_string_validate_title_error(self):
     #Arrange
     title = ''
+    task = ValidateTitle(title)
     #Act
     with self.assertRaises(ValueError) as value_error:
-      validator.validate_tile(title)
+      task.execute()
 
     exception_message = value_error.exception.args[0]
     #Assert
@@ -19,9 +22,10 @@ class TestValidator(unittest.TestCase):
   def test_short_string_validate_title_error(self):
     #Arrange
     title = 'te'
+    task = ValidateTitle(title)
     #Act
     with self.assertRaises(ValueError) as value_error:
-      validator.validate_tile(title)
+      task.execute()
 
     exception_message = value_error.exception.args[0]
     #Assert
@@ -30,17 +34,19 @@ class TestValidator(unittest.TestCase):
   def test_string_validate_title_success(self):
     #Arrange
     title = 'test'
+    task = ValidateTitle(title)
     #Act
-    result = validator.validate_tile(title)
+    result = task.execute()
     #Assert
-    self.assertEqual('Validation Success: Title "test" is valid.', result)
+    self.assertEqual('Validation: Title "test" is valid.', result)
 
   def test_empty_string_validate_img_error(self):
     #Arrange
     img = ''
+    task = ValidateImage(img)
     #Act
     with self.assertRaises(ValueError) as value_error:
-      validator.validate_img(img)
+      task.execute()
 
     exception_message = value_error.exception.args[0]
     #Assert
@@ -49,9 +55,10 @@ class TestValidator(unittest.TestCase):
   def test_invalid_url_format_validate_img_error(self):
     #Arrange
     img = 'https://www'
+    task = ValidateImage(img)
     #Act
     with self.assertRaises(ValueError) as value_error:
-      validator.validate_img(img)
+      task.execute()
 
     exception_message = value_error.exception.args[0]
     #Assert
@@ -60,9 +67,10 @@ class TestValidator(unittest.TestCase):
   def test_non_unsplash_url_validate_img_error(self):
     #Arrange
     img = 'https://www.test.com'
+    task = ValidateImage(img)
     #Act
     with self.assertRaises(ValueError) as value_error:
-      validator.validate_img(img)
+      task.execute()
 
     exception_message = value_error.exception.args[0]
     #Assert
@@ -71,10 +79,11 @@ class TestValidator(unittest.TestCase):
   def test_valid_url_validate_img_success(self):
     #Arrange
     img = 'https://unsplash.com/photos/OsF_qvHCoj0'
+    task = ValidateImage(img)
     #Act
-    result = validator.validate_img(img)
+    result = task.execute()
     #Assert
-    self.assertEqual('Validation Success: Image "https://unsplash.com/photos/OsF_qvHCoj0" is valid.', result)
+    self.assertEqual('Validation: Image "https://unsplash.com/photos/OsF_qvHCoj0" is valid.', result)
 
 if __name__ == '__main__':
   unittest.main()
