@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
-from assistant import web_scraper
+from assistant.commands.blog import web_scraper
 import tempfile, shutil, os
 
 class TestWebScraper(unittest.TestCase):

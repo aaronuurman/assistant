@@ -2,16 +2,18 @@
 
 import click
 import os
-import assistant.blog_command
-from assistant.str_helper import is_null_or_whitespace
+from assistant.commands.blog import blog_command
+from assistant.common.str_helper import is_null_or_whitespace
 
 class Config(object):
 
 	def __init__(self):
 		self.verbose = False
 
+
 pass_config = click.make_pass_decorator(Config, ensure=True)
 
+# App entrypoint
 @click.group()
 @click.option(
 	'-v',
@@ -23,6 +25,7 @@ pass_config = click.make_pass_decorator(Config, ensure=True)
 def cli(config, verbose):
 	config.verbose = verbose
 
+# Blog command
 @cli.command()
 @click.option(
 	'-t',

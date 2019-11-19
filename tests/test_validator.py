@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
-from assistant import validator
+from assistant.commands.blog import validator
 
 class TestValidator(unittest.TestCase):
   

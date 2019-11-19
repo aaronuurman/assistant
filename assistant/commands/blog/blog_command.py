@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-from slugify import slugify
 from os import path
-from assistant import logger, validator, web_scraper, file_handler, git_handler
+from slugify import slugify
+from assistant.common import logger, file_handler, git_handler
+from assistant.commands.blog import validator, web_scraper
 
 def handle(config, title, img_url, project_path):
 	try:

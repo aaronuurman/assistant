@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
-from assistant import str_helper
+from assistant.common import str_helper
 
 class TestStrHelper(unittest.TestCase):
   
