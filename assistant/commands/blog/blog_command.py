@@ -3,45 +3,55 @@
 from os import path
 from slugify import slugify
 from assistant.common import logger, file_handler, git_handler
-from assistant.commands.blog import validator, web_scraper
+from assistant.commands.blog import web_scraper
+from assistant.commands.blog.validate_image import ValidateImage
+from assistant.commands.blog.validate_title import ValidateTitle
+from assistant.commands.blog.validate_project_path import ValidateProjectPath
 
 def handle(config, title, img_url, project_path):
 	try:
-		logger.info(config.verbose, 'Starting project path validation.')
-		path_validation_result = validator.validate_project_path(project_path)
-		logger.success(path_validation_result)
+		tasks = []
+		tasks.append(ValidateProjectPath(project_path))
+		tasks.append(ValidateTitle(title))
+		tasks.append(ValidateImage(img_url))
 
-		logger.info(config.verbose, 'Starting title validation.')
-		title_validation_result = validator.validate_tile(title)
-		logger.success(title_validation_result)
+		logger.success(str(len(tasks)))
 
-		logger.info(config.verbose, 'Starting image url validation.')
-		img_validation_result = validator.validate_img(img_url)
-		logger.success(img_validation_result)
+		# logger.info(config.verbose, 'Starting project path validation.')
+		# path_validation_result = validator.validate_project_path(project_path)
+		# logger.success(path_validation_result)
 
-		logger.info(config.verbose, 'Requesting image data.')
-		slug = slugify(title)
-		image_file_name = '.'.join((slug,'jpg'))
-		image = web_scraper.get_image_author(img_url, image_file_name)
-		logger.info(config.verbose, 'Image url: %s' % image.url)
-		logger.info(config.verbose, 'Image file name: %s' % image.file_name)
-		logger.info(config.verbose, 'Image author: %s' % image.author_name)
-		logger.info(config.verbose, 'Image author profile: %s' % image.author_profile)
-		logger.success('Successfully aquired image data.')
+		# logger.info(config.verbose, 'Starting title validation.')
+		# title_validation_result = validator.validate_tile(title)
+		# logger.success(title_validation_result)
 
-		branch_name = git_handler.createNewBranch(slug)
-		logger.success('Successfully created a new working branch "%s".' % branch_name)
+		# logger.info(config.verbose, 'Starting image url validation.')
+		# img_validation_result = validator.validate_img(img_url)
+		# logger.success(img_validation_result)
 
-		logger.info(config.verbose, 'Starting image download.')
-		full_image_path = path.join(file_handler.find_sub_folder(project_path, '/src/images'), image_file_name)
-		web_scraper.download_img(img_url, full_image_path)
-		logger.success('Image "%s" downloaded succesfully to "%s".' % (img_url, full_image_path))
+		# logger.info(config.verbose, 'Requesting image data.')
+		# slug = slugify(title)
+		# image_file_name = '.'.join((slug,'jpg'))
+		# image = web_scraper.get_image_author(img_url, image_file_name)
+		# logger.info(config.verbose, 'Image url: %s' % image.url)
+		# logger.info(config.verbose, 'Image file name: %s' % image.file_name)
+		# logger.info(config.verbose, 'Image author: %s' % image.author_name)
+		# logger.info(config.verbose, 'Image author profile: %s' % image.author_profile)
+		# logger.success('Successfully aquired image data.')
+
+		# branch_name = git_handler.createNewBranch(slug)
+		# logger.success('Successfully created a new working branch "%s".' % branch_name)
+
+		# logger.info(config.verbose, 'Starting image download.')
+		# full_image_path = path.join(file_handler.find_sub_folder(project_path, '/src/images'), image_file_name)
+		# web_scraper.download_img(img_url, full_image_path)
+		# logger.success('Image "%s" downloaded succesfully to "%s".' % (img_url, full_image_path))
 		
-		logger.info(config.verbose, 'Preparing data for new post.')
-		post_file_name = '.'.join((slug,'md'))
-		full_post_path = path.join(file_handler.find_sub_folder(project_path, '/src/pages/posts'), post_file_name)
-		post_data = __template(title, image.file_name, image.author_name, image.author_profile)
-		file_handler.write_to_file(full_post_path, post_data)
+		# logger.info(config.verbose, 'Preparing data for new post.')
+		# post_file_name = '.'.join((slug,'md'))
+		# full_post_path = path.join(file_handler.find_sub_folder(project_path, '/src/pages/posts'), post_file_name)
+		# post_data = __template(title, image.file_name, image.author_name, image.author_profile)
+		# file_handler.write_to_file(full_post_path, post_data)
 
 	except ValueError as er:
 		logger.error('Validation Error: {}'.format(er))
