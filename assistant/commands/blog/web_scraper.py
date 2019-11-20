@@ -11,12 +11,6 @@ class Image:
     self.author_name = author_name
     self.author_profile = author_profile
 
-def download_img(imageUrl, filePath):
-  """Download image from Unsplash and save it in provided location"""
-
-  downloadEndPoint = imageUrl + '/download?force=true'
-  request.urlretrieve(downloadEndPoint, filePath)
-
 def get_image_author(imageUrl, file_name):
   """Request image author data from page.
   

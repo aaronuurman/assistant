@@ -27,4 +27,4 @@ class RequestImageData:
     logger.info(is_verbose, 'Image author: %s' % image.author_name)
     logger.info(is_verbose, 'Image author profile: %s' % image.author_profile)
 
-    return 'Request: Successfully aquired image data from %s' % img_url
+    return 'Request: Successfully aquired image data from %s' % img_url, image
