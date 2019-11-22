@@ -10,6 +10,6 @@ class CreateNewBranch:
 
   def execute(self):
     command = 'git checkout -B ' + self.__branch_name
-    os.system(command)
+    result = os.system(command)
     
     return 'Git: Created a new working branch "%s".' % self.__branch_name

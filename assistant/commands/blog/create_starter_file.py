@@ -11,11 +11,6 @@ class CreateStarterFile:
 		self.__project_path = project_path
 		self.__file_name = '.'.join((slugify(title),'md'))
 
-	def execute(self, image):
-		full_post_path = path.join(file_handler.find_sub_folder(self.__project_path, '/src/pages/posts'), self.__file_name)
-		post_data = __template(image)
-		file_handler.write_to_file(full_post_path, post_data)
-
 	def __template(self, image):
 		"""Returns a blog starter template with filled data."""
 
@@ -34,3 +29,10 @@ resources: [
 	""" % (self.__title, image.file_name, image.author_name, image.author_profile)
 
 		return data
+
+	def execute(self, image):
+		full_post_path = path.join(file_handler.find_sub_folder(self.__project_path, '/src/pages/posts'), self.__file_name)
+		post_data = self.__template(image)
+		file_handler.write_to_file(full_post_path, post_data)
+
+		return 'File: Blog starter file created to "%s"' % full_post_path
