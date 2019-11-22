@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 from assistant.common import logger
-from assistant.commands.blog.download_img import DownloadImg
-from assistant.commands.blog.validate_image import ValidateImage
-from assistant.commands.blog.validate_title import ValidateTitle
-from assistant.commands.blog.reguest_img_data import RequestImageData
-from assistant.commands.blog.create_new_branch import CreateNewBranch
-from assistant.commands.blog.create_starter_file import CreateStarterFile
-from assistant.commands.blog.validate_project_path import ValidateProjectPath
+from assistant.commands.blog.tasks.download_img import DownloadImg
+from assistant.commands.blog.tasks.validate_image import ValidateImage
+from assistant.commands.blog.tasks.validate_title import ValidateTitle
+from assistant.commands.blog.tasks.reguest_img_data import RequestImageData
+from assistant.commands.blog.tasks.create_new_branch import CreateNewBranch
+from assistant.commands.blog.tasks.create_starter_file import CreateStarterFile
+from assistant.commands.blog.tasks.validate_project_path import ValidateProjectPath
 
 def handle(config, title, img_url, project_path):
 	try:

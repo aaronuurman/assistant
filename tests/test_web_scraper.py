@@ -3,7 +3,7 @@
 import unittest
 import tempfile, shutil, os
 from assistant.commands.blog import web_scraper
-from assistant.commands.blog.download_img import DownloadImg
+from assistant.commands.blog.tasks.download_img import DownloadImg
 
 class TestWebScraper(unittest.TestCase):
   @classmethod
