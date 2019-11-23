@@ -38,11 +38,31 @@ class TestValidateProjectPath(unittest.TestCase):
 		#Teardown
 		shutil.rmtree(self.project_path)
 
+	def test_missing_posts_folder_validate_project_path_error(self):
+		#Setup
+		os.mkdir(self.project_path)
+		os.mkdir((self.project_path+"/src"))
+		os.mkdir((self.project_path+"/src/images"))
+		#Arrange
+		task = ValidateProjectPath(self.project_path)
+		#Act
+		with self.assertRaises(ValueError) as value_error:
+			task.execute()
+
+		exception_message = value_error.exception.args[0]
+		#Assert
+		self.assertEqual('Blog project does not contain folder "posts".', exception_message)
+		#Teardown
+		shutil.rmtree(self.project_path)
+
 	def test_project_path_validate_project_path_success(self):
 		#Setup
 		os.mkdir(self.project_path)
 		os.mkdir((self.project_path+"/src"))
 		os.mkdir((self.project_path+"/src/images"))
+		os.mkdir((self.project_path+"/src/pages"))
+		os.mkdir((self.project_path+"/src/pages/posts"))
+
 		#Arrange
 		task = ValidateProjectPath(self.project_path)
 		#Act
