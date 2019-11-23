@@ -2,6 +2,7 @@
 
 from os import path
 from slugify import slugify
+from datetime import datetime
 from assistant.common import file_handler
 
 class CreateStarterFile:
@@ -9,14 +10,16 @@ class CreateStarterFile:
 		self.start_message = 'Preparing data for new post.'
 		self.__title = title
 		self.__project_path = project_path
-		self.__file_name = '.'.join((slugify(title),'md'))
+		self.__date = datetime.now().strftime('%Y-%m-%d')
+		self.__date_time = datetime.now().strftime('%d-%m-%Y %H:%M')
+		self.__file_name = '.'.join(('%s-%s' % (self.__date,slugify(title)),'md'))
 
 	def __template(self, image):
 		"""Returns a blog starter template with filled data."""
 
 		data = """---
 title: %s
-date: "2019-11-14 07:20"
+date: "%s"
 image: '../../images/%s'
 imageAuthor: ['%s', '%s']
 imageProvider: ['Unsplash', 'https://unsplash.com']
@@ -26,7 +29,7 @@ resources: [
 	['https://www.example.com', 'Example']
 ]
 ---
-	""" % (self.__title, image.file_name, image.author_name, image.author_profile)
+	""" % (self.__title, self.__date_time, image.file_name, image.author_name, image.author_profile)
 
 		return data
 

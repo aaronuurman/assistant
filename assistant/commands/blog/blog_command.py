@@ -17,7 +17,7 @@ def handle(config, title, img_url, project_path):
 			ValidateTitle(title),
 			ValidateImage(img_url),
 			RequestImageData(img_url, title, config),
-			CreateNewBranch(title),
+			CreateNewBranch(title, project_path),
 			DownloadImg(project_path, img_url, title),
 			CreateStarterFile(title, project_path)
 		]
