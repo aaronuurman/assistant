@@ -7,9 +7,6 @@ class TestValidateProjectPath(unittest.TestCase):
 
 	def setUp(self):
 		self.project_path = '/tmp/blog'
-		# os.mkdir('/tmp/blog')
-		# os.mkdir('/tmp/blog/src')
-		# os.mkdir('/tmp/blog/src/images')
 
 	def test_empty_string_validate_project_path_error(self):
 		#Setup
