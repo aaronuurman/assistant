@@ -15,7 +15,7 @@ class CreateStarterFile:
 		self.__file_name = '.'.join(('%s-%s' % (self.__date,slugify(title)),'md'))
 
 	def __template(self, image):
-		"""Returns a blog starter template with filled data."""
+		"""Creates a blog starter template with filled data."""
 
 		data = """---
 title: %s
@@ -38,4 +38,4 @@ resources: [
 		post_data = self.__template(image)
 		file_handler.write_to_file(full_post_path, post_data)
 
-		return 'File: Blog starter file created to "%s"' % full_post_path
+		return 'File creation: Starter file for blog post created to "%s"' % full_post_path
