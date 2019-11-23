@@ -7,6 +7,7 @@ from assistant.commands.blog.tasks.validate_title import ValidateTitle
 from assistant.commands.blog.tasks.reguest_img_data import RequestImageData
 from assistant.commands.blog.tasks.create_new_branch import CreateNewBranch
 from assistant.commands.blog.tasks.create_starter_file import CreateStarterFile
+from assistant.commands.blog.tasks.commit_push_changes import CommitPushChanges
 from assistant.commands.blog.tasks.validate_project_path import ValidateProjectPath
 
 def handle(config, title, img_url, project_path):
@@ -19,7 +20,8 @@ def handle(config, title, img_url, project_path):
 			RequestImageData(img_url, title, config),
 			CreateNewBranch(title, project_path),
 			DownloadImg(project_path, img_url, title),
-			CreateStarterFile(title, project_path)
+			CreateStarterFile(title, project_path),
+			CommitPushChanges(project_path, title)
 		]
 
 		num_of_tasks = len(tasks)
