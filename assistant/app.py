@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
 
-import click
-import os
+import click, os
 from assistant.commands.blog import blog_command
 from assistant.common.str_helper import is_null_or_whitespace
+from assistant.dto.config_dto import ConfigDto
 
-class Config(object):
-
-	def __init__(self):
-		self.verbose = False
-
-
-pass_config = click.make_pass_decorator(Config, ensure=True)
+pass_config = click.make_pass_decorator(ConfigDto, ensure=True)
 
 # App entrypoint
 @click.group()
