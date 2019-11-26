@@ -11,7 +11,7 @@ class CreateStarterFile:
 		self.__title = title
 		self.__project_path = project_path
 		self.__date = datetime.now().strftime('%Y-%m-%d')
-		self.__date_time = datetime.now().strftime('%d-%m-%Y %H:%M')
+		self.__date_time = datetime.now().strftime('%Y-%m-%d %H:%M')
 		self.__file_name = '.'.join(('%s-%s' % (self.__date,slugify(title)),'md'))
 
 	def __template(self, image):
